@@ -14,6 +14,7 @@ import React, { useRef } from "react";
 import swal from "sweetalert";
 import { useRouter, useSearchParams } from "next/navigation";
 import { log } from "console";
+import { CardWrapper } from "./card-wrapper";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -36,39 +37,35 @@ const LoginForm = () => {
     }
   };
   return (
-    <Card className="mx-auto max-w-sm">
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl font-bold">Login</CardTitle>
-        <CardDescription>
-          Enter your username and password to login to your account
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="username">Username</Label>
-            <Input
-              id="username"
-              required
-              type="text"
-              onChange={(e) => (userName.current = e.target.value)}
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="password">Password</Label>
-            <Input
-              id="password"
-              required
-              type="password"
-              onChange={(e) => (pass.current = e.target.value)}
-            />
-          </div>
-          <Button onClick={onSubmit} className="w-full">
-            Login
-          </Button>
+    <CardWrapper
+      headerLabel="Log in"
+      backButtonLabel="Don't have an account?"
+      backButtonHref="/auth/register"
+    >
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="username">Username</Label>
+          <Input
+            id="username"
+            required
+            type="text"
+            onChange={(e) => (userName.current = e.target.value)}
+          />
         </div>
-      </CardContent>
-    </Card>
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
+          <Input
+            id="password"
+            required
+            type="password"
+            onChange={(e) => (pass.current = e.target.value)}
+          />
+        </div>
+        <Button onClick={onSubmit} className="w-full">
+          Login
+        </Button>
+      </div>
+    </CardWrapper>
   );
 };
 
