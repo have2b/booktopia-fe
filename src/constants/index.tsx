@@ -18,7 +18,7 @@ export const AUTH_LINKS = [
   {
     icon: <CiLogin size={32} />,
     title: "Login",
-    path: "/login",
+    path: "auth/login",
   },
   {
     icon: <RiUserAddLine size={28} />,

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EB_Garamond } from "next/font/google";
 import "./globals.css";
+import Provider from "./Provider";
 
 const font = EB_Garamond({
   weight: ["400", "500", "600", "700", "800"],
@@ -20,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={font.className + " px-2 bg-orange-100 bg-opacity-60"}>
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
