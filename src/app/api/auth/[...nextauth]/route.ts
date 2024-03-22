@@ -1,8 +1,8 @@
 import { parseJwt } from "@/lib/utils";
 import axios from "axios";
-import NextAuth from "next-auth";
+import NextAuth, { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       // The name to display on the sign in form (e.g. "Sign in with...")
@@ -62,7 +62,12 @@ const handler = NextAuth({
   pages: {
     signIn: "/auth/login",
     error: "/auth/error"
-  }
-});
+  },
+  session: {
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60 // 30 days
+  },
+}
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
