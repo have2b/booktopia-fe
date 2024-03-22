@@ -1,3 +1,4 @@
+import { addDays } from "date-fns";
 import * as z from "zod";
 
 export const SettingsSchema = z.object({
@@ -69,4 +70,19 @@ export const RegisterSchema = z.object({
   name: z.string().min(1, {
     message: "Full name is required",
   })
+});
+
+export const DateRangePickerSchema = z.object({
+  dateRange: z.object({
+    from: z.date({
+      required_error: "Start date is required.",
+    }),
+    to: z.date({
+      required_error: "End date is required.",
+    })
+    ,
+  }).refine(
+    (data) => data.from <= new Date(),
+    "Start date must not be in the future"
+  ),
 });
