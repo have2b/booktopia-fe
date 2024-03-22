@@ -14,3 +14,7 @@ export function isAdmin (roles: string[] | null| undefined) {
   }
   return false;
 }
+export const usdFormatter = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
