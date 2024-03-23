@@ -12,6 +12,7 @@ import {
   Settings,
   ChevronRight,
   ChevronLeft,
+  Book,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -48,6 +49,12 @@ export default function SideNavbar({}: Props) {
             href: "/admin",
             icon: LayoutDashboard,
             variant: "default",
+          },
+          {
+            title: "Products",
+            href: "/admin/products",
+            icon: Book,
+            variant: "ghost",
           },
           {
             title: "Users",

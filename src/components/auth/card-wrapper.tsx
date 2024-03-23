@@ -14,7 +14,6 @@ interface CardWrapperProps {
   headerLabel: string;
   backButtonLabel: string;
   backButtonHref: string;
-  width?: number;
 }
 
 export const CardWrapper = ({
@@ -22,13 +21,9 @@ export const CardWrapper = ({
   headerLabel,
   backButtonLabel,
   backButtonHref,
-  width,
 }: CardWrapperProps) => {
-  if (!width) {
-    width = 700;
-  }
   return (
-    <Card className={`w-[${width}px] shadow-md`}>
+    <Card className={`w-[700px] shadow-md`}>
       <CardHeader>
         <Header label={headerLabel} />
       </CardHeader>

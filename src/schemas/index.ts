@@ -86,3 +86,26 @@ export const DateRangePickerSchema = z.object({
     "Start date must not be in the future"
   ),
 });
+
+export const ProductSchema = z.object({
+  bookName: z.string().min(1),
+    author: z.string().min(1),
+    costPrice: z.coerce.number().positive(),
+    sellPrice: z.coerce.number().positive(),
+    categoryId: z.coerce.number().int().positive(),
+    description: z.string().max(255),
+    publisherId: z.coerce.number().int().positive(),
+    imageUrl: z.string().max(255).optional(),
+});
+
+export const ProductImportQuantitySchema = z.object({
+  bookId: z.coerce.number({ required_error: "BookId is required",}),
+  quantity: z.coerce
+  .number({ required_error: "Quantity is required",})
+  .min(1, {
+    message: "Quantity must be larger than 0"
+  })
+  .int({
+    message: "Quantity must be integer"
+  })
+})
