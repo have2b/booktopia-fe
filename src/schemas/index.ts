@@ -109,3 +109,9 @@ export const ProductImportQuantitySchema = z.object({
     message: "Quantity must be integer"
   })
 })
+
+export const OrderStatusSchema = z.object({
+  orderId: z.coerce
+  .number({ required_error: "OrderId is required",}),
+  status: z.string().regex(/^\d+$/),
+})

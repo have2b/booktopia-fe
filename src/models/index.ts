@@ -40,3 +40,31 @@ export interface ApiErrorDetails{
   code: number,
   message: string
 }
+
+export interface Order {
+  orderId: number;
+  userId: string;
+  status: number;
+  shipAddress: string;
+  createdAt: Date;
+  name: string,
+  phoneNumber: string,
+  email: string,
+  saleAmount: number
+};
+
+export interface OrderDetail {
+  orderId: number;
+  bookId: number;
+  quantity: number;
+  discount: number;
+  bookName: string,
+  author: string,
+  publisherName: string,
+  imageUrl: string,
+  sellPrice: number, 
+};
+
+export interface CollapsibleItemProps {
+  parentId: string;
+}

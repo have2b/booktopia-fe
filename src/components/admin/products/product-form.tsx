@@ -212,129 +212,132 @@ export function ProductForm({
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="categoryId"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Category</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn(
-                          "w-[200px] justify-between",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value
-                          ? categories.find(
-                              (category) => category.categoryId === field.value
-                            )?.categoryName
-                          : "Select category"}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] asdafasd p-0">
-                    <Command>
-                      <CommandInput placeholder="Search Category..." />
-                      <CommandEmpty>No category found.</CommandEmpty>
-                      <CommandList>
-                        {categories.map((category) => (
-                          <CommandItem
-                            value={category.categoryName}
-                            key={category.categoryId}
-                            onSelect={() => {
-                              form.setValue(
-                                "categoryId",
-                                category.categoryId ?? 0
-                              );
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                "mr-2 h-4 w-4",
-                                category.categoryId === field.value
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              )}
-                            />
-                            {category.categoryName}
-                          </CommandItem>
-                        ))}
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="publisherId"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel>Publisher</FormLabel>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <FormControl>
-                      <Button
-                        variant="outline"
-                        role="combobox"
-                        className={cn(
-                          "w-[200px] justify-between",
-                          !field.value && "text-muted-foreground"
-                        )}
-                      >
-                        {field.value
-                          ? publishers.find(
-                              (publisher) =>
-                                publisher.publisherId === field.value
-                            )?.publisherName
-                          : "Select category"}
-                        <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                      </Button>
-                    </FormControl>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-[200px] p-0">
-                    <Command>
-                      <CommandInput placeholder="Search publisher..." />
-                      <CommandEmpty>No publisher found.</CommandEmpty>
-                      <CommandList>
-                        {publishers.map((publisher) => (
-                          <CommandItem
-                            value={publisher.publisherName}
-                            key={publisher.publisherId}
-                            onSelect={() => {
-                              form.setValue(
-                                "publisherId",
-                                publisher.publisherId ?? 0
-                              );
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                "mr-2 h-4 w-4",
-                                publisher.publisherId === field.value
-                                  ? "opacity-100"
-                                  : "opacity-0"
-                              )}
-                            />
-                            {publisher.publisherName}
-                          </CommandItem>
-                        ))}
-                      </CommandList>
-                    </Command>
-                  </PopoverContent>
-                </Popover>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="flex">
+            <FormField
+              control={form.control}
+              name="categoryId"
+              render={({ field }) => (
+                <FormItem className="flex flex-col w-full border-r-8 border-transparent">
+                  <FormLabel>Category</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "w-full justify-between",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value
+                            ? categories.find(
+                                (category) =>
+                                  category.categoryId === field.value
+                              )?.categoryName
+                            : "Select category"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0 w-[--radix-popover-trigger-width] max-h-[--radix-popover-content-available-height]">
+                      <Command>
+                        <CommandInput placeholder="Search Category..." />
+                        <CommandEmpty>No category found.</CommandEmpty>
+                        <CommandList>
+                          {categories.map((category) => (
+                            <CommandItem
+                              value={category.categoryName}
+                              key={category.categoryId}
+                              onSelect={() => {
+                                form.setValue(
+                                  "categoryId",
+                                  category.categoryId ?? 0
+                                );
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  category.categoryId === field.value
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                )}
+                              />
+                              {category.categoryName}
+                            </CommandItem>
+                          ))}
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="publisherId"
+              render={({ field }) => (
+                <FormItem className="flex flex-col w-full border-l-8 border-transparent">
+                  <FormLabel>Publisher</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            "w-full justify-between",
+                            !field.value && "text-muted-foreground"
+                          )}
+                        >
+                          {field.value
+                            ? publishers.find(
+                                (publisher) =>
+                                  publisher.publisherId === field.value
+                              )?.publisherName
+                            : "Select category"}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="p-0 w-[--radix-popover-trigger-width] max-h-[--radix-popover-content-available-height]">
+                      <Command>
+                        <CommandInput placeholder="Search publisher..." />
+                        <CommandEmpty>No publisher found.</CommandEmpty>
+                        <CommandList>
+                          {publishers.map((publisher) => (
+                            <CommandItem
+                              value={publisher.publisherName}
+                              key={publisher.publisherId}
+                              onSelect={() => {
+                                form.setValue(
+                                  "publisherId",
+                                  publisher.publisherId ?? 0
+                                );
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  publisher.publisherId === field.value
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                )}
+                              />
+                              {publisher.publisherName}
+                            </CommandItem>
+                          ))}
+                        </CommandList>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
         <FormError message={error} />
         <FormSuccess message={success} />
