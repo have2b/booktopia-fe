@@ -54,7 +54,7 @@ const columns: ColumnDef<Book>[] = [
   },
   {
     accessorKey: "",
-    header: "Action",
+    header: " ",
     cell: ({ row }) => {
       return (
         <div className="flex gap-2 items-center">

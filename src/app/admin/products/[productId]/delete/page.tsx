@@ -130,7 +130,7 @@ export default function ProductDeletePage({
               <p className="text-gray-800">{book?.categoryId}</p>
             </div>
             <div>
-              <label className="text-gray-600 font-semibold">Image URL:</label>
+              <label className="text-gray-600 font-semibold">Image:</label>
               <img
                 src={book?.imageUrl ?? `/images/books/book_1.webp`}
                 alt="Book Image"
