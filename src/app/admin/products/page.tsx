@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { getBooks } from "@/actions/admin/product";
 import Link from "next/link";
 import { Router } from "next/router";
+import { usdFormatter } from "@/lib/utils";
 
 type Props = {};
 
@@ -47,10 +48,16 @@ const columns: ColumnDef<Book>[] = [
   {
     accessorKey: "costPrice",
     header: "Cost Price",
+    cell: ({ row }) => {
+      return usdFormatter.format(row.getValue("costPrice"));
+    },
   },
   {
     accessorKey: "sellPrice",
     header: "Sell Price",
+    cell: ({ row }) => {
+      return usdFormatter.format(row.getValue("sellPrice"));
+    },
   },
   {
     accessorKey: "",
