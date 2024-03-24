@@ -65,7 +65,6 @@ export default function ProductDetailPage({
   const onSubmit = (values: z.infer<typeof OrderStatusSchema>) => {
     setError("");
     setSuccess("");
-
     startSubmitTransition(() => {
       UpdateOrderStatus(orderIdNum, Number(values.status)).then((data) => {
         setError(data.error?.message);

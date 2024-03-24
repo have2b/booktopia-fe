@@ -14,7 +14,6 @@ export const GetOrders = async () => {
           "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
         }
        });
-       console.log(response.data.payload);
       return response.data;
     } catch (error) {
         console.log(error);
@@ -35,11 +34,8 @@ export const GetOrderDetailByOrderId = async (orderId: number) => {
           "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
         }
        });
-       console.log(response.data.payload);
       return response.data;
     } catch (error) {
-        console.log(error);
-  
       const axiosError = error as AxiosError;
       const message = (axiosError.response?.data as any)?.error;
       return <ApiResponse<OrderDetail[]>>{ error:  message};
@@ -71,7 +67,6 @@ export const getOrderById = async (id: number) => {
       return  <ApiResponse<Order>>{ error:  {code:400, message:"Invalid request"}};
     }
     const session = await getServerSession(authOptions);
-    
     try {
       const response = await axios.put<ApiResponse<Order>>(process.env.BACKEND_API + `/Orders/${orderId}/status`, {
         status
