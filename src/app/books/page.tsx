@@ -17,9 +17,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useBookCount } from "@/hooks/useBooks";
 import useCategories from "@/hooks/useCategories";
-import { Book } from "@/models";
+import { useProductSearchParamsStore } from "@/hooks/useProductSearchParamsStore";
+import { encodeQueryString } from "@/lib/utils";
+import { Book, BookPagination } from "@/models";
 import { searchBookSchema } from "@/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
@@ -133,51 +134,45 @@ function ShowBooks(books?: Book[]) {
 }
 
 export default function Books() {
-  const [pageIndex, setPageIndex] = useState(0);
-  const [sortType, setSortType] = useState("nameAsc");
   const [books, setBooks] = useState<Book[]>([]);
+  const [totalPage, setTotalPage] = useState<number>(0);
   const categories = useCategories();
+  const { searchParams, setPageIndex, setSearchParams, setSortType } =
+    useProductSearchParamsStore();
   const form = useForm<z.infer<typeof searchBookSchema>>({
     resolver: zodResolver(searchBookSchema),
   });
-
+  var pageIndex = searchParams.pageIndex;
+  var sortType = searchParams.sortType;
+  var pageSize = searchParams.pageSize;
+  var bookCount = totalPage;
+  var pageCount = Math.ceil(totalPage / pageSize);
   // Fetch default list of books
   useEffect(() => {
     axios
-      .get<{ payload: Book[] }>(
-        `http://localhost:7105/api/Books?pageIndex=${pageIndex}&sort=${sortType}`
+      .get<{ payload: BookPagination }>(
+        `http://localhost:7105/api/Books?pageIndex=${pageIndex}&sort=${sortType}&pageSize=${pageSize}&` +
+          encodeQueryString(searchParams.params)
       )
       .then((res) => {
-        setBooks(res.data.payload);
+        setBooks(res.data.payload.books);
+        setTotalPage(res.data.payload.total);
       });
-  }, [pageIndex, sortType]);
+  }, [searchParams]);
 
   function onSubmit(values: z.infer<typeof searchBookSchema>) {
-    // Do something with the form values.
-    console.log(values);
-    axios
-      .post<{ payload: Book[] }>(`http://localhost:7105/api/Books/search`, {
-        ...values,
-      })
-      .then((res) => {
-        setBooks(res.data.payload);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    setSearchParams(values);
   }
-
-  const { bookCount, pageCount } = useBookCount();
 
   const handlePreviousPage = () => {
     if (pageIndex > 0) {
-      setPageIndex((prevIndex) => prevIndex - 1);
+      setPageIndex(pageIndex - 1);
     }
   };
 
   const handleNextPage = () => {
-    if (pageIndex < pageCount) {
-      setPageIndex((prevIndex) => prevIndex + 1);
+    if (pageIndex + 1 < pageCount) {
+      setPageIndex(pageIndex + 1);
     }
   };
 
@@ -229,6 +224,9 @@ export default function Books() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
+                      <SelectItem key={0} value={" "}>
+                        All
+                      </SelectItem>
                       {categories.map((category, index) => (
                         <SelectItem
                           key={index}
@@ -277,14 +275,14 @@ export default function Books() {
             <span>
               Showing{" "}
               <span className="font-semibold text-2xl text-red-600">
-                {books.length}/{bookCount}{" "}
+                {books?.length}/{bookCount}{" "}
               </span>
               books
             </span>
             |
             <span>
               <span className="font-semibold text-2xl text-red-600">
-                {pageIndex + 1}/{pageCount + 1}{" "}
+                {pageIndex + 1}/{pageCount}{" "}
               </span>{" "}
               pages
             </span>

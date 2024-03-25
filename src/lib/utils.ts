@@ -18,3 +18,42 @@ export const usdFormatter = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
+
+export function encodeQueryString(params: { [key: string]: any } | undefined): string {
+  const queryStringParts: string[] = [];
+
+  for (const key in params) {
+    if (params.hasOwnProperty(key)) {
+      const value = params[key];
+      if (value !== undefined) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            queryStringParts.push(
+              `${encodeURIComponent(key)}=${encodeURIComponent(item)}`
+            );
+          });
+        } else if (typeof value === "object") {
+          // Handle nested objects
+          for (const nestedKey in value) {
+            if (value.hasOwnProperty(nestedKey)) {
+              const nestedValue = value[nestedKey];
+              if (nestedValue !== undefined) {
+                queryStringParts.push(
+                  `${encodeURIComponent(key)}[${encodeURIComponent(
+                    nestedKey
+                  )}]=${encodeURIComponent(nestedValue)}`
+                );
+              }
+            }
+          }
+        } else {
+          queryStringParts.push(
+            `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+          );
+        }
+      }
+    }
+  }
+
+  return queryStringParts.join("&");
+}

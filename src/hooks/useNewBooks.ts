@@ -1,4 +1,4 @@
-import { Book } from "@/models";
+import { Book, BookPagination } from "@/models";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -7,9 +7,11 @@ function useNewBooks(): Book[] {
 
   useEffect(() => {
     axios
-      .get<{ payload: Book[] }>("http://localhost:7105/api/Books?latest=true")
+      .get<{ payload: BookPagination }>(
+        "http://localhost:7105/api/Books?latest=true"
+      )
       .then((res) => {
-        setBooks(res.data.payload);
+        setBooks(res.data.payload.books);
       });
   }, []);
 
