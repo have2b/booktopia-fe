@@ -1,14 +1,9 @@
 "use client";
-import { ImportBook, getBookById } from "@/actions/admin/product";
+import { UpdateOrderStatus, getOrderById } from "@/actions/admin/order";
+import OrderDetailTable from "@/components/admin/orders/order-detail-table";
+import { FormError } from "@/components/form-error";
+import { FormSuccess } from "@/components/form-success";
 import { Button } from "@/components/ui/button";
-import { cn, usdFormatter } from "@/lib/utils";
-import {
-  OrderStatusSchema,
-  ProductImportQuantitySchema,
-  ProductSchema,
-} from "@/schemas";
-import Link from "next/link";
-import { useEffect, useState, useTransition } from "react";
 import {
   Dialog,
   DialogContent,
@@ -26,15 +21,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
 import { Input } from "@/components/ui/input";
-import { UpdateOrderStatus, getOrderById } from "@/actions/admin/order";
-import { Order } from "@/models";
-import OrderDetailTable from "@/components/admin/orders/order-detail-table";
 import {
   Select,
   SelectContent,
@@ -42,6 +29,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { cn, usdFormatter } from "@/lib/utils";
+import { Order } from "@/models";
+import { OrderStatusSchema } from "@/schemas";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useEffect, useState, useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 export default function ProductDetailPage({
   params,
@@ -123,7 +118,7 @@ export default function ProductDetailPage({
         <div className="p-4">
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-2xl font-semibold text-gray-800">
-              Order #{params.orderId}'s Information
+              {`Order #${params.orderId}'s Information`}
             </h1>
             <div>
               <Button>

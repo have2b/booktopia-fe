@@ -1,9 +1,11 @@
 "use client";
 import { AUTH_LINKS, NAVBAR_LINKS } from "@/constants";
 import { isAdmin } from "@/lib/utils";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import { FaHistory, FaRegUserCircle } from "react-icons/fa";
 
 import Image from "next/image";
+import Link from "next/link";
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -51,9 +53,22 @@ export function Navbar() {
                     {AUTH_LINKS[2].title}
                   </div>
                 </a>
-                <p className="text-lg font-semibold hover:text-orange-500 transition-colors">
+                <a
+                  href={"/orders"}
+                  className="text-lg font-semibold hover:text-orange-500 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <FaHistory />
+                    {"Orders"}
+                  </div>
+                </a>
+                <Link
+                  href={"/profile"}
+                  className="flex items-center gap-2 text-lg font-bold hover:text-red-500 transition-colors"
+                >
+                  <FaRegUserCircle size={24} />
                   {session.user.username}
-                </p>
+                </Link>
                 <button onClick={() => signOut()}>
                   <p className="text-lg font-semibold hover:text-orange-500 transition-colors">
                     Sign Out

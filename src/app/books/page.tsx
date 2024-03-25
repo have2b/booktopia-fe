@@ -30,6 +30,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdAddShoppingCart } from "react-icons/md";
+import swal from "sweetalert";
 import { z } from "zod";
 import { create } from "zustand";
 const roboto = Roboto_Mono({
@@ -156,6 +157,9 @@ export default function Books() {
       .then((res) => {
         setBooks(res.data.payload.books);
         setTotalBook(res.data.payload.total);
+      })
+      .catch((err) => {
+        swal("Book not found", "There is no book like your search", "error");
       });
   }, [searchParams]);
 

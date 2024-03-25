@@ -1,15 +1,14 @@
 "use client";
-import { DataTable } from "@/components/admin/data-table";
-import { ColumnDef } from "@tanstack/react-table";
-import React, { useEffect, useState, useTransition } from "react";
-import PageTitle from "@/components/admin/page-title";
-import { cn, usdFormatter } from "@/lib/utils";
-import { Order } from "@/models";
 import { GetOrders } from "@/actions/admin/order";
 import { CollapsibleTable } from "@/components/admin/orders/collapsible-table";
 import OrderDetailTable from "@/components/admin/orders/order-detail-table";
+import PageTitle from "@/components/admin/page-title";
 import { Button } from "@/components/ui/button";
+import { cn, usdFormatter } from "@/lib/utils";
+import { Order } from "@/models";
+import { ColumnDef } from "@tanstack/react-table";
 import Link from "next/link";
+import { useEffect, useState, useTransition } from "react";
 
 type Props = {};
 

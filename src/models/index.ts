@@ -1,3 +1,13 @@
+export interface UserInfo {
+  userName: string;
+  name: string;
+  phoneNumber: string;
+  email: string;
+  address: string;
+  isActive: boolean;
+  roles: string[];
+}
+
 export interface Category {
   categoryId: number;
   categoryName?: string;
@@ -30,15 +40,15 @@ export interface Publisher {
   books?: Book[];
 }
 
-export interface ApiResponse<T>{
-  success: boolean,
-  payload: T,
-  error: ApiErrorDetails | undefined
+export interface ApiResponse<T> {
+  success: boolean;
+  payload: T;
+  error: ApiErrorDetails | undefined;
 }
 
-export interface ApiErrorDetails{
-  code: number,
-  message: string
+export interface ApiErrorDetails {
+  code: number;
+  message: string;
 }
 
 export interface Order {
@@ -47,29 +57,29 @@ export interface Order {
   status: number;
   shipAddress: string;
   createdAt: Date;
-  name: string,
-  phoneNumber: string,
-  email: string,
-  saleAmount: number
-};
+  name: string;
+  phoneNumber: string;
+  email: string;
+  saleAmount: number;
+}
 
 export interface OrderDetail {
   orderId: number;
   bookId: number;
   quantity: number;
   discount: number;
-  bookName: string,
-  author: string,
-  publisherName: string,
-  imageUrl: string,
-  sellPrice: number, 
-};
+  bookName: string;
+  author: string;
+  publisherName: string;
+  imageUrl: string;
+  sellPrice: number;
+}
 
 export interface CollapsibleItemProps {
   parentId: string;
 }
 
 export interface BookPagination {
-  books: Book[],
-  total: number,
-};
+  books: Book[];
+  total: number;
+}
