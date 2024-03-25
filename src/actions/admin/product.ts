@@ -1,28 +1,32 @@
 "use server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { ApiResponse, Book } from "@/models";
+import { ProductSearchParams } from "@/hooks/useProductSearchParamsStore";
+import { encodeQueryString } from "@/lib/utils";
+import { ApiResponse, Book, BookPagination } from "@/models";
 import { ProductImportQuantitySchema, ProductSchema } from "@/schemas";
 import axios, { AxiosError } from "axios";
 import { getServerSession } from "next-auth";
 import { z } from "zod";
 
-export const getBooks = async () => {
-  const session = await getServerSession(authOptions);
-  try {
-    const response = await axios.get<ApiResponse<Book[]>>(
-      process.env.BACKEND_API + `/Books?latest=true`,
+export const getBooks = async (searchParams: ProductSearchParams) => {
+    const session = await getServerSession(authOptions);
+    const {pageIndex, pageSize, sortType} = searchParams;
+    try {
+      const response = await axios.get<ApiResponse<BookPagination>>(process.env.BACKEND_API  + `/Books?pageIndex=${pageIndex}&sort=${sortType}&pageSize=${pageSize}&`+
+      encodeQueryString(searchParams.params),
       {
         headers: {
-          Authorization: `Bearer ${session?.user.accessToken}`, //the token is a variable which holds the token
-        },
-      }
-    );
-    return response.data;
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    const message = (axiosError.response?.data as any)?.error;
-    return <ApiResponse<Book[]>>{ error: message };
-  }
+          "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
+        }
+       });
+      return response.data;
+    } catch (error) {
+  
+      const axiosError = error as AxiosError;
+      const message = (axiosError.response?.data as any)?.error;
+      return <ApiResponse<BookPagination>>{ error:  message};
+    }
+    
 };
 
 export const CreateBook = async (values: z.infer<typeof ProductSchema>) => {
