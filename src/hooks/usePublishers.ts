@@ -7,7 +7,7 @@ function usePublishers(): Publisher[] {
 
   useEffect(() => {
     axios
-      .get<{ payload: Publisher[] }>("https://localhost:7105/api/Publishers")
+      .get<{ payload: Publisher[] }>("http://localhost:7105/api/Publishers")
       .then((res) => {
         setPublishers(res.data.payload);
       });

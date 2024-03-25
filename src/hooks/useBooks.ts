@@ -13,7 +13,7 @@ export function useBookCount(): BookCount {
   useEffect(() => {
     setTimeout(() => {
       axios
-        .get<{ payload: BookCount }>("https://localhost:7105/api/Books/count")
+        .get<{ payload: BookCount }>("http://localhost:7105/api/Books/count")
         .then((res) => {
           setBookCount(res.data.payload?.bookCount);
           setPageCount(res.data.payload?.pageCount);

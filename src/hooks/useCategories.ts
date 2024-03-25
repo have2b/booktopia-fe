@@ -7,7 +7,7 @@ function useCategories(): Category[] {
 
   useEffect(() => {
     axios
-      .get<{ payload: Category[] }>("https://localhost:7105/api/Categories")
+      .get<{ payload: Category[] }>("http://localhost:7105/api/Categories")
       .then((res) => {
         setCategories(res.data.payload);
       });
