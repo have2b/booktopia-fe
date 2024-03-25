@@ -18,12 +18,12 @@ export const AUTH_LINKS = [
   {
     icon: <CiLogin size={32} />,
     title: "Login",
-    path: "auth/login",
+    path: "/auth/login",
   },
   {
     icon: <RiUserAddLine size={28} />,
     title: "Register",
-    path: "auth/register",
+    path: "/auth/register",
   },
   {
     icon: <CiShoppingCart size={32} />,

@@ -19,24 +19,24 @@ export const authOptions: NextAuthOptions = {
         // Add logic here to look up the user from the credentials supplied
 
         let user = null;
-        await axios.post('http://localhost:7105/api/Authenticate/login', {
-          username: credentials?.username,
+        await axios
+          .post("http://localhost:7105/api/Authenticate/login", {
+            username: credentials?.username,
             password: credentials?.password,
-        })
-        .then(async function (response) {
-          var accessToken = response.data.payload;
-          var username = parseJwt(response.data.payload).username;
-          var roles = parseJwt(response.data.payload).role;
-          user = {
-            username , 
-            roles, 
-            accessToken
+          })
+          .then(async function (response) {
+            var accessToken = response.data.payload;
+            var username = parseJwt(response.data.payload).username;
+            var roles = parseJwt(response.data.payload).role;
+            user = {
+              username,
+              roles,
+              accessToken,
             };
-          }
-        )
-        .catch(function (error) {
-          console.log(error);
-        });
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
         if (user) {
           // Any object returned will be saved in `user` property of the JWT
@@ -61,13 +61,13 @@ export const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: "/auth/login",
-    error: "/auth/error"
+    error: "/auth/error",
   },
   session: {
-    strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60 // 30 days
+    strategy: "jwt",
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
-}
+};
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
