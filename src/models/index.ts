@@ -68,3 +68,8 @@ export interface OrderDetail {
 export interface CollapsibleItemProps {
   parentId: string;
 }
+
+export interface BookPagination {
+  books: Book[],
+  total: number,
+};
