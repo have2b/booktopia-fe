@@ -29,3 +29,14 @@ export interface Publisher {
   contactNumber?: string;
   books?: Book[];
 }
+
+export interface ApiResponse<T>{
+  success: boolean,
+  payload: T,
+  error: ApiErrorDetails | undefined
+}
+
+export interface ApiErrorDetails{
+  code: number,
+  message: string
+}
