@@ -1,12 +1,12 @@
 export interface Category {
-  categoryId?: number;
+  categoryId: number;
   categoryName?: string;
   description?: string;
-  books?: Book[];
+  books: Book[];
 }
 
 export interface Book {
-  bookId?: number;
+  bookId: number;
   bookName?: string;
   author?: string;
   costPrice?: number;
