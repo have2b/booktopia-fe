@@ -135,7 +135,7 @@ function ShowBooks(books?: Book[]) {
 
 export default function Books() {
   const [books, setBooks] = useState<Book[]>([]);
-  const [totalPage, setTotalPage] = useState<number>(0);
+  const [totalBook, setTotalBook] = useState<number>(0);
   const categories = useCategories();
   const { searchParams, setPageIndex, setSearchParams, setSortType } =
     useProductSearchParamsStore();
@@ -145,8 +145,7 @@ export default function Books() {
   var pageIndex = searchParams.pageIndex;
   var sortType = searchParams.sortType;
   var pageSize = searchParams.pageSize;
-  var bookCount = totalPage;
-  var pageCount = Math.ceil(totalPage / pageSize);
+  var pageCount = Math.ceil(totalBook / pageSize);
   // Fetch default list of books
   useEffect(() => {
     axios
@@ -156,7 +155,7 @@ export default function Books() {
       )
       .then((res) => {
         setBooks(res.data.payload.books);
-        setTotalPage(res.data.payload.total);
+        setTotalBook(res.data.payload.total);
       });
   }, [searchParams]);
 
@@ -275,7 +274,7 @@ export default function Books() {
             <span>
               Showing{" "}
               <span className="font-semibold text-2xl text-red-600">
-                {books?.length}/{bookCount}{" "}
+                {books?.length}/{totalBook}{" "}
               </span>
               books
             </span>
