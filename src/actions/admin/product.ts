@@ -1,4 +1,4 @@
-"use server"
+"use server";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { ApiResponse, Book } from "@/models";
 import { ProductImportQuantitySchema, ProductSchema } from "@/schemas";
@@ -7,22 +7,22 @@ import { getServerSession } from "next-auth";
 import { z } from "zod";
 
 export const getBooks = async () => {
-    const session = await getServerSession(authOptions);
-    try {
-      const response = await axios.get<ApiResponse<Book[]>>(process.env.BACKEND_API  + `/Books?latest=true`,
+  const session = await getServerSession(authOptions);
+  try {
+    const response = await axios.get<ApiResponse<Book[]>>(
+      process.env.BACKEND_API + `/Books?latest=true`,
       {
         headers: {
-          "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
-        }
-       });
-      return response.data;
-    } catch (error) {
-  
-      const axiosError = error as AxiosError;
-      const message = (axiosError.response?.data as any)?.error;
-      return <ApiResponse<Book[]>>{ error:  message};
-    }
-    
+          Authorization: `Bearer ${session?.user.accessToken}`, //the token is a variable which holds the token
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    const axiosError = error as AxiosError;
+    const message = (axiosError.response?.data as any)?.error;
+    return <ApiResponse<Book[]>>{ error: message };
+  }
 };
 
 export const CreateBook = async (values: z.infer<typeof ProductSchema>) => {
@@ -32,116 +32,160 @@ export const CreateBook = async (values: z.infer<typeof ProductSchema>) => {
     return { error: "Invalid fields!" };
   }
   const session = await getServerSession(authOptions);
-  const { categoryId, costPrice, publisherId, author, bookName, sellPrice, description, imageUrl } = validatedFields.data;
+  const {
+    categoryId,
+    costPrice,
+    publisherId,
+    author,
+    bookName,
+    sellPrice,
+    description,
+    imageUrl,
+  } = validatedFields.data;
   try {
-    const response = await axios.post(process.env.BACKEND_API + "/Books", {
-      categoryId, costPrice, publisherId, author, bookName, sellPrice, description, imageUrl
-    },
-    {
+    const response = await axios.post(
+      process.env.BACKEND_API + "/Books",
+      {
+        categoryId,
+        costPrice,
+        publisherId,
+        author,
+        bookName,
+        sellPrice,
+        description,
+        imageUrl,
+      },
+      {
         headers: {
-          "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
-        }
-       });
+          Authorization: `Bearer ${session?.user.accessToken}`, //the token is a variable which holds the token
+        },
+      }
+    );
     return { success: "Add new book successfully!" };
   } catch (error) {
     const axiosError = error as AxiosError;
     const message = (axiosError.response?.data as any)?.error?.message;
-    return { error:  message};
+    return { error: message };
   }
-  
 };
-
 
 export const getBookById = async (id: number) => {
   const session = await getServerSession(authOptions);
   try {
-    const response = await axios.get<ApiResponse<Book>>(process.env.BACKEND_API  + `/Books/${id}`,
-    {
-      headers: {
-        "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
+    const response = await axios.get<ApiResponse<Book>>(
+      process.env.BACKEND_API + `/Books/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${session?.user.accessToken}`, //the token is a variable which holds the token
+        },
       }
-     });
+    );
     return response.data;
   } catch (error) {
-
     const axiosError = error as AxiosError;
     const message = (axiosError.response?.data as any)?.error;
-    return <ApiResponse<Book>>{ error:  message};
+    return <ApiResponse<Book>>{ error: message };
   }
-  
 };
 
-export const EditBook = async (bookId : number ,values: z.infer<typeof ProductSchema>) => {
+export const EditBook = async (
+  bookId: number,
+  values: z.infer<typeof ProductSchema>
+) => {
   const validatedFields = ProductSchema.safeParse(values);
   if (!validatedFields.success) {
     return { error: "Invalid fields!" };
   }
-  if(isNaN(bookId)){
+  if (isNaN(bookId)) {
     return { error: "Not found this book!!" };
   }
   const session = await getServerSession(authOptions);
-  const { categoryId, costPrice, publisherId, author, bookName, sellPrice, description, imageUrl } = validatedFields.data;
+  const {
+    categoryId,
+    costPrice,
+    publisherId,
+    author,
+    bookName,
+    sellPrice,
+    description,
+    imageUrl,
+  } = validatedFields.data;
   try {
-    const response = await axios.put(process.env.BACKEND_API + `/Books/${bookId}`, {
-      categoryId, costPrice, publisherId, author, bookName, sellPrice, description, imageUrl
-    },
-    {
+    const response = await axios.put(
+      process.env.BACKEND_API + `/Books/${bookId}`,
+      {
+        categoryId,
+        costPrice,
+        publisherId,
+        author,
+        bookName,
+        sellPrice,
+        description,
+        imageUrl,
+      },
+      {
         headers: {
-          "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
-        }
-       });
+          Authorization: `Bearer ${session?.user.accessToken}`, //the token is a variable which holds the token
+        },
+      }
+    );
     return { success: "Edit book successfully!" };
   } catch (error) {
     const axiosError = error as AxiosError;
     const message = (axiosError.response?.data as any)?.error?.message;
-    return { error:  message};
+    return { error: message };
   }
-  
 };
 
 export const DeleteBookById = async (id: number) => {
   const session = await getServerSession(authOptions);
   try {
-    const response = await axios.delete(process.env.BACKEND_API  + `/Books/${id}`,
-    {
-      headers: {
-        "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
+    const response = await axios.delete(
+      process.env.BACKEND_API + `/Books/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${session?.user.accessToken}`, //the token is a variable which holds the token
+        },
       }
-     });
-     return { success: "Delete successfully!" };
+    );
+    return { success: "Delete successfully!" };
   } catch (error) {
     const axiosError = error as AxiosError;
     const message = (axiosError.response?.data as any)?.error?.message;
-    return { error:  message};
+    return { error: message };
   }
-  
 };
 
-export const ImportBook = async (values: z.infer<typeof ProductImportQuantitySchema>) => {
+export const ImportBook = async (
+  values: z.infer<typeof ProductImportQuantitySchema>
+) => {
   const validatedFields = ProductImportQuantitySchema.safeParse(values);
   if (!validatedFields.success) {
     return { error: "Invalid fields!" };
   }
-  const {bookId, quantity } = validatedFields.data;
-  if(isNaN(bookId)){
+  const { bookId, quantity } = validatedFields.data;
+  if (isNaN(bookId)) {
     return { error: "Not found this book!!" };
   }
   const session = await getServerSession(authOptions);
-  
+
   try {
-    const response = await axios.post(process.env.BACKEND_API + `/Books/import`, {
-      bookId, quantity
-    },
-    {
+    const response = await axios.post(
+      process.env.BACKEND_API + `/Books/import`,
+      {
+        bookId,
+        quantity,
+      },
+      {
         headers: {
-          "Authorization": `Bearer ${session?.user.accessToken}` //the token is a variable which holds the token
-        }
-       });
+          Authorization: `Bearer ${session?.user.accessToken}`, //the token is a variable which holds the token
+        },
+      }
+    );
     return { success: "Import book successfully!" };
   } catch (error) {
     const axiosError = error as AxiosError;
     const message = (axiosError.response?.data as any)?.error?.message;
-    return { error:  message};
+    return { error: message };
   }
-  
 };

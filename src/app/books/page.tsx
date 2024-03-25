@@ -145,7 +145,7 @@ export default function Books() {
   useEffect(() => {
     axios
       .get<{ payload: Book[] }>(
-        `https://localhost:7105/api/Books?pageIndex=${pageIndex}&sort=${sortType}`
+        `http://localhost:7105/api/Books?pageIndex=${pageIndex}&sort=${sortType}`
       )
       .then((res) => {
         setBooks(res.data.payload);
@@ -156,7 +156,7 @@ export default function Books() {
     // Do something with the form values.
     console.log(values);
     axios
-      .post<{ payload: Book[] }>(`https://localhost:7105/api/Books/search`, {
+      .post<{ payload: Book[] }>(`http://localhost:7105/api/Books/search`, {
         ...values,
       })
       .then((res) => {

@@ -65,7 +65,7 @@ export const columns: ColumnDef<CartState>[] = [
 
       const book = row.original;
       return (
-        <div className="flex justify-center gap-2">
+        <div className="flex justify-start gap-2">
           <Button type="button" onClick={() => add(book.bookId.toString())}>
             +
           </Button>
