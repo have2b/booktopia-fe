@@ -1,7 +1,7 @@
 import { searchBookSchema } from "@/validations";
 import { z } from "zod";
 import { create } from "zustand";
-type ProductSearchParams = {
+export type ProductSearchParams = {
     params?: z.infer<typeof searchBookSchema>;
     sortType: string;
     pageIndex: number;
