@@ -7,7 +7,9 @@ function useNewBooks(): Book[] {
 
   useEffect(() => {
     axios
-      .get<{ payload: BookPagination }>("http://localhost:7105/api/Books?latest=true")
+      .get<{ payload: BookPagination }>(
+        "http://localhost:7105/api/Books?latest=true"
+      )
       .then((res) => {
         setBooks(res.data.payload.books);
       });
