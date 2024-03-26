@@ -28,7 +28,11 @@ function NewBookCarousel(props: { books: Book[] }) {
             <div className="flex justify-center">
               <div className="relative w-36 h-48">
                 <Image
-                  src={`/images/books/book_1.webp`}
+                  src={
+                    book.imageUrl === "default_product.png"
+                      ? "/images/books/default_product.png"
+                      : `${book.imageUrl}`
+                  }
                   alt="cat_pic"
                   fill
                   objectFit="cover"

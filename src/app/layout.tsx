@@ -1,8 +1,9 @@
+import Provider from "@/app/Provider";
 import { Footer, Navbar } from "@/components";
+import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
 import { EB_Garamond } from "next/font/google";
 import "./globals.css";
-import Provider from "@/app/Provider";
 
 const font = EB_Garamond({
   weight: ["400", "500", "600", "700", "800"],
@@ -26,6 +27,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <Toaster />
         </Provider>
       </body>
     </html>

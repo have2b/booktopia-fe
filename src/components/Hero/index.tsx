@@ -34,7 +34,7 @@ export function Hero() {
             voluptates corrupti nulla distinctio, unde accusamus?
           </p>
           <Button className="bg-white text-black uppercase mt-10 p-6 hover:bg-orange-600 hover:text-white">
-            <Link href={"/book"} className="text-lg font-bold">
+            <Link href={"/books"} className="text-lg font-bold">
               Shop now
             </Link>
           </Button>

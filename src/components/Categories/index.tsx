@@ -32,7 +32,7 @@ function CategoryCarousel(props: { categories: Category[] }) {
             <div className="flex justify-center">
               <div className="relative w-96 h-72 p-5">
                 <Image
-                  src={`/images/categories/cat_1.jpg`}
+                  src={`/images/categories/cat_${index}.jpg`}
                   alt="cat_pic"
                   fill
                   objectFit="cover"

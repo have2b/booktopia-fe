@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/components/ui/use-toast";
 import useCategories from "@/hooks/useCategories";
 import { useProductSearchParamsStore } from "@/hooks/useProductSearchParamsStore";
 import { encodeQueryString } from "@/lib/utils";
@@ -83,6 +84,7 @@ export const useCartStore = create<CartStore>((set) => ({
 
 function ShowBooks(books?: Book[]) {
   const { addToCart } = useCartStore();
+  const { toast } = useToast();
   return (
     <>
       {books?.map((book, index) => (
@@ -104,6 +106,10 @@ function ShowBooks(books?: Book[]) {
               <Button
                 type="button"
                 onClick={() => {
+                  toast({
+                    title: "Added to cart",
+                    description: "Go to your cart to see details",
+                  });
                   addToCart({
                     bookId: book.bookId.toString(),
                     bookName: book.bookName,
