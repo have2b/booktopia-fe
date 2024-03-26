@@ -6,6 +6,7 @@ import { FaHistory, FaRegUserCircle } from "react-icons/fa";
 
 import Image from "next/image";
 import Link from "next/link";
+import { FcManager } from "react-icons/fc";
 
 export function Navbar() {
   const { data: session } = useSession();
@@ -36,6 +37,15 @@ export function Navbar() {
                 <p className="text-lg font-semibold hover:text-orange-500 transition-colors">
                   {session.user.username}
                 </p>
+                <a
+                  href={"/admin"}
+                  className="text-lg font-semibold hover:text-orange-500 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <FcManager />
+                    {"Panel"}
+                  </div>
+                </a>
                 <button onClick={() => signOut()}>
                   <p className="text-lg font-semibold hover:text-orange-500 transition-colors">
                     Sign Out
