@@ -83,3 +83,12 @@ export interface BookPagination {
   books: Book[];
   total: number;
 }
+
+export interface User {
+  userName: string;
+  name: string;
+  phoneNumber: string;
+  Email: string;
+  Address: string;
+  isActive: boolean;
+};

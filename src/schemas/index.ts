@@ -115,3 +115,8 @@ export const OrderStatusSchema = z.object({
   .number({ required_error: "OrderId is required",}),
   status: z.string().regex(/^\d+$/),
 })
+
+export const UserActiveSchema = z.object({
+  bookName: z.string().min(1),
+  status: z.string(),
+})
