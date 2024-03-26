@@ -35,8 +35,6 @@ export default function Profile() {
         }
       )
       .then((res) => {
-        console.log(res.data.payload);
-
         setUserInfo(res.data.payload);
       })
       .catch((err) => {

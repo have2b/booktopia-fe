@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
@@ -21,6 +22,7 @@ const deleteCart = () => {
 export default function Cart() {
   const [isClient, setIsClient] = useState(false);
   const [cartData, setCartData] = useState<CartState[]>([]);
+  const [address, setAddress] = useState("");
   const { data: session } = useSession();
   const checkout = (token: string | undefined) => {
     const body: CheckOut[] = cartData.map((book) => ({
@@ -34,7 +36,7 @@ export default function Cart() {
         .post(
           "http://localhost:7105/api/Orders",
           {
-            shipAddress: "Ha Noi",
+            shipAddress: address,
             orderDetails: body,
           },
           {
@@ -68,13 +70,28 @@ export default function Cart() {
 
   return (
     <div className="container mx-auto py-10">
-      <div className="flex justify-end gap-3">
+      <div className="flex justify-end gap-12">
         <Button type="button" onClick={() => deleteCart()} className="text-lg">
           Remove all
         </Button>
+        <Input
+          type="text"
+          placeholder="Ship address"
+          value={address}
+          onChange={(event) => {
+            setAddress(event.target.value);
+          }}
+        />
         <Button
           type="button"
           onClick={() => {
+            if (!address) {
+              swal(
+                "Missing ship address!",
+                "Please enter ship address!",
+                "error"
+              );
+            }
             checkout(session?.user.accessToken);
           }}
           className="text-lg"
